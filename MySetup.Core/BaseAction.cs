@@ -4,6 +4,10 @@ namespace MySetup.Core
 {
     public abstract class BaseAction : ISetupAction
     {
+        public BaseAction()
+        {
+            Dependencies = new List<ISetupAction>();
+        }
         public abstract string Name { get; }
         public virtual void DoAction(ISetupAction parentAction)
         {

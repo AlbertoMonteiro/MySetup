@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.IO;
+using System.IO.Compression;
 
 namespace MySetup.Core
 {
@@ -14,9 +15,13 @@ namespace MySetup.Core
             var downloadAction = parentAction as DownloadAction;
             if (downloadAction != null)
                 FilePath = downloadAction.DestinationPath;
-            
+
+            if (Directory.Exists(TargetDirectory))
+            {
+                Directory.Delete(TargetDirectory, true);
+            }
             ZipFile.Open(FilePath, ZipArchiveMode.Read).ExtractToDirectory(TargetDirectory);
-            
+
             base.DoAction(parentAction);
         }
 
